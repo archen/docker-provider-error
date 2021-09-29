@@ -1,0 +1,12 @@
+FROM debian@sha256:9415ec02cf7f77ada7e0802545392477abe0fd9cd17b108b83d690f3c62571db
+
+RUN groupadd -r testgroup && useradd -r testuser -G testgroup
+
+
+COPY --chown=testuser:testgroup . /testroot
+RUN chmod -R =rw,+X /testroot
+
+USER testuser
+
+WORKDIR /testroot
+RUN cat testfile
